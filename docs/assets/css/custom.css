@@ -1,0 +1,247 @@
+/* ══════════════════════════════════════════════
+   L&A — Design System "Liquid Dark"
+   Custom CSS · MkDocs Material
+   ══════════════════════════════════════════════ */
+
+/* ─── Palette primaire ─── */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #00e5ff;
+  --md-primary-fg-color--light: rgba(0,229,255,.7);
+  --md-primary-fg-color--dark:  #00b8cc;
+  --md-accent-fg-color:         #8b5cf6;
+  --md-default-bg-color:        #080b12;
+  --md-default-fg-color:        #eef0f7;
+  --md-default-fg-color--light: #8892aa;
+  --md-default-fg-color--lightest: #1c2438;
+  --md-code-bg-color:           #0e1419;
+  --md-code-fg-color:           #cee8ee;
+}
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #0099bb;
+  --md-accent-fg-color:         #7c3aed;
+}
+
+/* ─── Header gradient irisé ─── */
+.md-header {
+  background: linear-gradient(90deg, #080b12 0%, #0c1018 100%);
+  border-bottom: 1px solid rgba(0,229,255,.15);
+}
+.md-header__title {
+  font-weight: 700;
+  letter-spacing: .05em;
+  background: linear-gradient(90deg, #00e5ff, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Navigation tabs ─── */
+.md-tabs { background: #080b12; border-bottom: 1px solid #1c2438; }
+.md-tabs__link--active { color: #00e5ff !important; border-bottom: 2px solid #00e5ff; }
+
+/* ─── Code blocks ─── */
+.md-typeset code {
+  background: #111722;
+  color: #00e5ff;
+  border-radius: 4px;
+  padding: .1em .35em;
+  font-size: .82em;
+}
+.highlight { border-radius: 8px; overflow: hidden; }
+
+/* ══════════════════════════════════════════════
+   PERSONA CARDS
+   ══════════════════════════════════════════════ */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+.persona-card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  background: var(--md-code-bg-color);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .2s, transform .15s;
+}
+.persona-card:hover {
+  box-shadow: 0 6px 28px rgba(0,0,0,.25);
+  transform: translateY(-2px);
+}
+.persona-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.persona-card.human::before      { background: linear-gradient(90deg,#f59e0b,#fbbf24); }
+.persona-card.fullstack::before  { background: linear-gradient(90deg,#10b981,#34d399); }
+.persona-card.luca::before       { background: linear-gradient(90deg,#00e5ff,#00b8cc); }
+.persona-card.astra::before      { background: linear-gradient(90deg,#8b5cf6,#a78bfa); }
+.persona-card.hack::before       { background: linear-gradient(90deg,#ef4444,#f87171); }
+
+.persona-header {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  margin-bottom: 1rem;
+}
+.persona-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.persona-avatar.human     { background: rgba(245,158,11,.15); }
+.persona-avatar.fullstack { background: rgba(16,185,129,.15); }
+.persona-avatar.luca      { background: rgba(0,229,255,.12); }
+.persona-avatar.astra     { background: rgba(139,92,246,.12); }
+.persona-avatar.hack      { background: rgba(239,68,68,.12); }
+
+.persona-name { font-weight: 700; font-size: 1rem; margin: 0; line-height:1.2; }
+.persona-role { font-size: .78rem; opacity: .6; margin: .15rem 0 0; }
+
+.persona-tag {
+  display: inline-block;
+  font-size: .68rem;
+  padding: .12rem .45rem;
+  border-radius: 99px;
+  margin: .2rem .1rem 0;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.tag-human     { background: rgba(245,158,11,.15); color: #f59e0b; }
+.tag-fullstack { background: rgba(16,185,129,.15);  color: #10b981; }
+.tag-luca      { background: rgba(0,229,255,.12);   color: #00e5ff; }
+.tag-astra     { background: rgba(139,92,246,.12);  color: #a78bfa; }
+.tag-hack      { background: rgba(239,68,68,.12);   color: #f87171; }
+
+/* ══════════════════════════════════════════════
+   CHAT UI — Conversation L&A
+   ══════════════════════════════════════════════ */
+.chat-demo {
+  background: #080b12;
+  border: 1px solid #1c2438;
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 680px;
+  margin: 1.5rem auto;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+.chat-demo-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #1c2438;
+  margin-bottom: 1.25rem;
+}
+.chat-demo-header .app-name {
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  background: linear-gradient(90deg,#00e5ff,#8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 7px #00e5ff;
+  animation: blink 2s infinite;
+  flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.chat-row {
+  display: flex;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+  align-items: flex-start;
+}
+.chat-row.user { flex-direction: row-reverse; }
+
+.chat-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.chat-avatar.user  { background:rgba(245,158,11,.2); color:#f59e0b; }
+.chat-avatar.luca  { background:rgba(0,229,255,.15); color:#00e5ff; border:1px solid rgba(0,229,255,.3); }
+.chat-avatar.astra { background:rgba(139,92,246,.15);color:#8b5cf6; border:1px solid rgba(139,92,246,.3); }
+
+.chat-bubble {
+  max-width: 76%;
+  padding: .75rem 1rem;
+  border-radius: 12px;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: #eef0f7;
+}
+.chat-bubble.user  { background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.2); border-top-right-radius:3px; }
+.chat-bubble.luca  { background:rgba(0,229,255,.05);  border:1px solid rgba(0,229,255,.16);  border-top-left-radius:3px; }
+.chat-bubble.astra { background:rgba(139,92,246,.05); border:1px solid rgba(139,92,246,.16); border-top-left-radius:3px; }
+
+.chat-label {
+  font-size: .67rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; margin-bottom: .3rem;
+}
+.chat-label.luca  { color:#00e5ff; }
+.chat-label.astra { color:#8b5cf6; }
+.chat-label.user  { color:#f59e0b; text-align:right; }
+
+.chat-bubble table { font-size:.75rem; margin:.5rem 0 0; width:100%; }
+.chat-bubble table th { background:rgba(255,255,255,.05); font-size:.7rem; padding:.3rem .5rem; }
+.chat-bubble table td { padding:.25rem .5rem; }
+.chat-bubble table tr:nth-child(even) td { background:rgba(255,255,255,.03); }
+
+.val-pos { color:#00ffb3; font-weight:700; }
+.val-neg { color:#ff4d6d; font-weight:700; }
+.val-neu { color:#8892aa; }
+
+/* ══════════════════════════════════════════════
+   QUICKSTART STEPS
+   ══════════════════════════════════════════════ */
+.qs-steps { counter-reset: qs; margin: 1.25rem 0; }
+.qs-step  { display:flex; gap:1rem; margin-bottom:1rem; align-items:flex-start; }
+.qs-step::before {
+  counter-increment: qs;
+  content: counter(qs);
+  min-width:28px; height:28px; border-radius:50%;
+  background:var(--md-primary-fg-color);
+  color:#080b12; font-size:.75rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:.1rem;
+}
+.qs-step-content strong { display:block; font-size:.9rem; margin-bottom:.2rem; }
+.qs-step-content p { font-size:.82rem; opacity:.8; margin:0; }
+
+/* ══════════════════════════════════════════════
+   USER STORIES BADGES
+   ══════════════════════════════════════════════ */
+.badge-must   { background:rgba(239,68,68,.15);  color:#ef4444; padding:.1rem .45rem; border-radius:99px; font-size:.68rem; font-weight:700; }
+.badge-should { background:rgba(245,158,11,.15); color:#f59e0b; padding:.1rem .45rem; border-radius:99px; font-size:.68rem; font-weight:700; }
+.badge-could  { background:rgba(16,185,129,.15); color:#10b981; padding:.1rem .45rem; border-radius:99px; font-size:.68rem; font-weight:700; }
+
+/* ══════════════════════════════════════════════
+   THREAT CARDS — anti-persona Hack
+   ══════════════════════════════════════════════ */
+.threat-card {
+  border:1px solid rgba(239,68,68,.3); border-left:4px solid #ef4444;
+  border-radius:8px; padding:1rem 1.25rem;
+  background:rgba(239,68,68,.04); margin:.75rem 0;
+}
+.threat-card .threat-title { font-weight:700; color:#f87171; font-size:.85rem; margin-bottom:.4rem; }
+.threat-card .threat-body  { font-size:.8rem; opacity:.85; }
+.mitigation-badge {
+  display:inline-block; background:rgba(16,185,129,.15); color:#10b981;
+  font-size:.68rem; padding:.1rem .45rem; border-radius:99px; font-weight:600;
+  margin:.2rem .15rem 0 0;
+}

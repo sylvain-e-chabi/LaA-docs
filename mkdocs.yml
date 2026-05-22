@@ -1,0 +1,98 @@
+site_name: L&A — Wealth Management
+site_description: Documentation technique et fonctionnelle du projet L&A
+site_author: GenAI FullStack
+site_url: https://sylvain-e-chabi.github.io/LaA-docs/
+
+repo_name: sylvain-e-chabi/LaA-docs
+repo_url: https://github.com/TON_GITHUB_USER/LaA-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: fr
+  logo: assets/images/logo.png
+  favicon: assets/images/logo.png
+  palette:
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Passer en mode clair
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Passer en mode sombre
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+  font:
+    text: DM Sans
+    code: JetBrains Mono
+  custom_dir: overrides
+
+extra_css:
+  - assets/css/custom.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sylvain-e-chabi/LaA-docs
+
+plugins:
+  - search:
+      lang: fr
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Accueil: index.md
+  - PRD:
+    - Vue d'ensemble: prd/index.md
+    - Personas:
+      - Tous les personas: prd/personas/index.md
+      - Human Client: prd/personas/human-client.md
+      - GenAI FullStack: prd/personas/genai-fullstack.md
+      - LUCA (Agent): prd/personas/luca.md
+      - ASTRA (Agent): prd/personas/astra.md
+      - Anti-persona Hack: prd/personas/hack.md
+    - User Stories: prd/user-stories/index.md
+    - Quickstarts:
+      - GenAI FullStack: prd/quickstarts/fullstack.md
+      - Human Client: prd/quickstarts/client.md
+    - Conversation L&A: prd/conversation/index.md

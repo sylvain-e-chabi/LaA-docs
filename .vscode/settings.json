@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": false
+  },
+  "files.associations": {
+    "*.md": "markdown",
+    "mkdocs.yml": "yaml"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+}

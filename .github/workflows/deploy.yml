@@ -1,0 +1,49 @@
+# ══════════════════════════════════════════════
+# L&A — GitHub Actions · MkDocs → GitHub Pages
+# Déclenché sur chaque push sur main
+# ══════════════════════════════════════════════
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # déclenchement manuel possible
+
+permissions:
+  contents: write      # nécessaire pour gh-pages
+
+jobs:
+  deploy:
+    name: Build & Deploy MkDocs
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout du code
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # historique complet (pour git-revision-date)
+
+      # 2. Python setup
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      # 3. Installation des dépendances
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4. Build + Deploy via gh-pages branch
+      - name: Build & Deploy
+        run: mkdocs gh-deploy --force --clean --verbose
+
+      # 5. Résumé dans les logs
+      - name: Summary
+        run: |
+          echo "## ✅ Déploiement réussi" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 Site disponible : https://${{ github.repository_owner }}.github.io/$(basename ${{ github.repository }})/" >> $GITHUB_STEP_SUMMARY
+          echo "📅 Commit : ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
