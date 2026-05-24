@@ -1,33 +1,24 @@
 site_name: L&A — Wealth Management
-site_description: Documentation technique et fonctionnelle du projet L&A
-site_author: GenAI FullStack
+site_description: Conseiller patrimonial piloté par l'IA — LUCA & ASTRA
+site_author: sylvain-e-chabi
 site_url: https://sylvain-e-chabi.github.io/LaA-docs/
 
 repo_name: sylvain-e-chabi/LaA-docs
-repo_url: https://github.com/TON_GITHUB_USER/LaA-docs
-edit_uri: edit/main/docs/
+repo_url: https://github.com/sylvain-e-chabi/LaA-docs
+edit_uri: ""
 
 theme:
   name: material
   language: fr
-  logo: assets/images/logo.png
-  favicon: assets/images/logo.png
+  custom_dir: overrides
+  logo: assets/images/logo.svg
+  favicon: assets/images/logo.svg
   palette:
-    - scheme: slate
-      primary: custom
-      accent: custom
-      toggle:
-        icon: material/brightness-4
-        name: Passer en mode clair
-    - scheme: default
-      primary: custom
-      accent: custom
-      toggle:
-        icon: material/brightness-7
-        name: Passer en mode sombre
+    scheme: default
+    primary: custom
+    accent: custom
   features:
-    - navigation.tabs
-    - navigation.tabs.sticky
+    - navigation.instant
     - navigation.sections
     - navigation.expand
     - navigation.top
@@ -36,15 +27,14 @@ theme:
     - search.suggest
     - content.code.copy
     - content.code.annotate
-    - content.tabs.link
     - toc.follow
   font:
-    text: DM Sans
+    text: Inter
     code: JetBrains Mono
-  custom_dir: overrides
 
 extra_css:
-  - assets/css/custom.css
+  - assets/css/landing.css
+  - assets/css/prd.css
 
 extra:
   social:
@@ -70,7 +60,6 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -82,17 +71,18 @@ markdown_extensions:
 
 nav:
   - Accueil: index.md
-  - PRD:
-    - Vue d'ensemble: prd/index.md
-    - Personas:
-      - Tous les personas: prd/personas/index.md
-      - Human Client: prd/personas/human-client.md
-      - GenAI FullStack: prd/personas/genai-fullstack.md
-      - LUCA (Agent): prd/personas/luca.md
-      - ASTRA (Agent): prd/personas/astra.md
-      - Anti-persona Hack: prd/personas/hack.md
+  - Produit:
+    - Vue d'ensemble: product/overview.md
+    - Fonctionnalités: product/features.md
+    - Agent LUCA: product/luca.md
+    - Agent ASTRA: product/astra.md
+    - Roadmap: product/roadmap.md
+  - Conception:
+    - Personas: prd/personas/index.md
     - User Stories: prd/user-stories/index.md
-    - Quickstarts:
-      - GenAI FullStack: prd/quickstarts/fullstack.md
-      - Human Client: prd/quickstarts/client.md
+    - Architecture: prd/architecture.md
     - Conversation L&A: prd/conversation/index.md
+  - Dev:
+    - Quickstart FullStack: prd/quickstarts/fullstack.md
+    - Quickstart Client: prd/quickstarts/client.md
+    - Threat model: prd/personas/hack.md
