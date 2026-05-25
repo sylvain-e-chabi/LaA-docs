@@ -1,3 +1,303 @@
+#!/usr/bin/env bash
+# ══════════════════════════════════════════════════════════════════════
+# L&A — Landing v2 · Avatars + Radar Chart + Section Agents enrichie
+# Usage : cd /c/smc/LeA/LaA-docs && bash setup-la-landing-v2.sh
+# ══════════════════════════════════════════════════════════════════════
+set -euo pipefail
+
+echo ""
+echo "══════════════════════════════════════════════"
+echo "  L&A — Landing v2 · Avatars + Radar"
+echo "══════════════════════════════════════════════"
+echo ""
+
+# ──────────────────────────────────────────────
+# 1. STRUCTURE IMAGES
+# ──────────────────────────────────────────────
+mkdir -p docs/assets/images/avatars
+
+echo ""
+echo "📁 Chemins de dépôt des avatars :"
+echo "   docs/assets/images/avatars/po-tech.png"
+echo "   docs/assets/images/avatars/genai-fullstack.png"
+echo "   docs/assets/images/avatars/sre-lead.png"
+echo "   docs/assets/images/avatars/soc-analyst.png"
+echo "   docs/assets/images/avatars/lz-ops.png"
+echo "   docs/assets/images/avatars/agentic-luca.png"
+echo "   docs/assets/images/avatars/agentic-astra.png"
+echo ""
+echo "→ Copie manuelle depuis Windows :"
+echo "   cp /c/chemin/vers/PO-Tech.png         docs/assets/images/avatars/po-tech.png"
+echo "   cp /c/chemin/vers/GenAI-FullStack.png docs/assets/images/avatars/genai-fullstack.png"
+echo "   cp /c/chemin/vers/SRE-lead.png        docs/assets/images/avatars/sre-lead.png"
+echo "   cp /c/chemin/vers/SOC-Analyst.png     docs/assets/images/avatars/soc-analyst.png"
+echo "   cp /c/chemin/vers/LZ-Ops.png          docs/assets/images/avatars/lz-ops.png"
+echo "   cp /c/chemin/vers/agentic-luca.png    docs/assets/images/avatars/agentic-luca.png"
+echo "   cp /c/chemin/vers/agentic-astra.png   docs/assets/images/avatars/agentic-astra.png"
+echo ""
+
+# ──────────────────────────────────────────────
+# 2. CSS COMPLÉMENTAIRE — radar + squad + agents v2
+# ──────────────────────────────────────────────
+cat >> docs/assets/css/landing.css << 'EOF'
+
+/* ══════════════════════════════════════════════
+   SECTION SQUAD — radar + cartes membres
+   ══════════════════════════════════════════════ */
+
+.la-squad-intro {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+.la-squad-text h2 { margin-bottom: 8px; }
+.la-squad-text p  { font-size:14px; color:var(--la-ink2); line-height:1.65; margin-bottom:20px; }
+
+/* Radar */
+.la-radar-wrap {
+  position: relative;
+  background: #f4f3f0;
+  border: 1px solid var(--la-border);
+  border-radius: 14px;
+  padding: 20px;
+}
+.la-radar-wrap canvas { display: block; width: 100%; height: auto; }
+.la-radar-legend {
+  display: flex; flex-wrap: wrap; gap: 8px 16px;
+  margin-top: 14px; justify-content: center;
+}
+.la-radar-legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--la-ink2); font-weight: 500;
+}
+.la-radar-legend-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+/* Toggles du radar */
+.la-radar-toggles {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 14px;
+}
+.la-radar-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  padding: 4px 10px; border-radius: 99px; cursor: pointer;
+  border: 1.5px solid; transition: opacity .15s;
+  user-select: none;
+}
+.la-radar-toggle.off { opacity: .3; }
+
+/* Squad grid membres */
+.la-squad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+.la-squad-card {
+  background: var(--la-white);
+  border: 1px solid var(--la-border);
+  border-radius: 12px;
+  padding: 18px 14px;
+  text-align: center;
+  transition: border-color .15s, transform .15s;
+  cursor: pointer;
+}
+.la-squad-card:hover { border-color: #bbb; transform: translateY(-2px); }
+.la-squad-card img {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--la-border);
+  margin-bottom: 10px;
+  display: block; margin-left: auto; margin-right: auto;
+}
+.la-squad-card-name { font-size: 13px; font-weight: 600; color: var(--la-ink); margin-bottom: 3px; }
+.la-squad-card-role { font-size: 11px; color: var(--la-ink3); letter-spacing: .03em; }
+.la-squad-card-dot  {
+  width: 8px; height: 8px; border-radius: 50%;
+  margin: 8px auto 0; display: block;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION AGENTS v2 — chapeau + dialog + fiches
+   ══════════════════════════════════════════════ */
+
+/* Chapeau rubrique */
+.la-agents-hat {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+.la-agents-hat .la-section-label { justify-content: center; text-align: center; display: block; }
+.la-agents-hat h2 { margin-bottom: 10px; }
+.la-agents-hat p  { font-size: 15px; color: var(--la-ink2); line-height: 1.65; }
+
+/* Séparateur dialog */
+.la-dialog-wrap {
+  margin-bottom: 48px;
+}
+.la-dialog-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.la-dialog-header-line {
+  flex: 1; height: 1px; background: var(--la-border);
+}
+.la-dialog-header-label {
+  font-size: 10px; font-weight: 600; color: var(--la-ink3);
+  letter-spacing: .08em; text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Chat bubbles — version light */
+.la-chat {
+  background: #fdfdfc;
+  border: 1px solid var(--la-border);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.la-chat-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--la-border);
+  margin-bottom: 20px;
+}
+.la-chat-bar-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--la-cyan); flex-shrink: 0;
+  animation: blink-light 2s infinite;
+}
+@keyframes blink-light { 0%,100%{opacity:1} 50%{opacity:.25} }
+.la-chat-bar-name {
+  font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  background: linear-gradient(90deg, var(--la-cyan), var(--la-violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.la-chat-bar-status { margin-left: auto; font-size: 11px; color: var(--la-ink3); }
+
+.la-chat-row { display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-start; }
+.la-chat-row.la-user { flex-direction: row-reverse; }
+
+.la-chat-av {
+  width: 38px; height: 38px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  border: 2px solid var(--la-border);
+}
+.la-chat-av.la-av-luca  { border-color: #a5f3fc; }
+.la-chat-av.la-av-astra { border-color: var(--la-violet-bd); }
+.la-chat-av-initial {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+.la-chat-av-initial.user { background: #111; color: #fff; }
+
+.la-chat-body { max-width: 74%; }
+.la-chat-who  { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+.la-chat-who.luca  { color: var(--la-cyan); }
+.la-chat-who.astra { color: var(--la-violet); }
+.la-chat-who.user  { color: #555; text-align: right; }
+
+.la-chat-bubble {
+  padding: 10px 14px; border-radius: 12px;
+  font-size: 13px; line-height: 1.6; color: var(--la-ink);
+}
+.la-chat-bubble.user  { background: #f4f3f0; border: 1px solid var(--la-border); border-top-right-radius: 3px; }
+.la-chat-bubble.luca  { background: #ecfeff; border: 1px solid #a5f3fc; border-top-left-radius: 3px; }
+.la-chat-bubble.astra { background: #f5f3ff; border: 1px solid var(--la-violet-bd); border-top-left-radius: 3px; }
+
+.la-chat-bubble table { font-size: 12px; margin: 8px 0 0; width: 100%; border-collapse: collapse; }
+.la-chat-bubble table th { background: rgba(0,0,0,.04); padding: 4px 8px; font-size: 11px; font-weight: 600; }
+.la-chat-bubble table td { padding: 4px 8px; border-top: 1px solid rgba(0,0,0,.05); }
+.chat-pos { color: #0d7040; font-weight: 700; }
+.chat-neg { color: #be123c; font-weight: 700; }
+.chat-neu { color: var(--la-ink3); }
+
+/* Fiches agents individuelles */
+.la-agents-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.la-agent-full {
+  background: var(--la-white);
+  border: 1px solid var(--la-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.la-agent-full-header {
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--la-border);
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.la-agent-full-header img {
+  width: 80px; height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--la-border);
+  flex-shrink: 0;
+}
+.la-agent-full.luca .la-agent-full-header { background: var(--la-cyan-bg); border-bottom-color: var(--la-cyan-bd); }
+.la-agent-full.astra .la-agent-full-header { background: var(--la-violet-bg); border-bottom-color: var(--la-violet-bd); }
+.la-agent-full.luca .la-agent-full-header img  { border-color: var(--la-cyan-bd); }
+.la-agent-full.astra .la-agent-full-header img { border-color: var(--la-violet-bd); }
+
+.la-agent-full-pill {
+  font-size: 10px; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; margin-bottom: 5px;
+}
+.la-agent-full.luca  .la-agent-full-pill { color: #0e7490; }
+.la-agent-full.astra .la-agent-full-pill { color: var(--la-violet); }
+.la-agent-full-name  { font-size: 18px; font-weight: 700; color: var(--la-ink); margin-bottom: 3px; }
+.la-agent-full-sub   { font-size: 12px; color: var(--la-ink3); }
+
+.la-agent-full-body  { padding: 20px 24px; }
+.la-agent-full-desc  { font-size: 13px; color: var(--la-ink2); line-height: 1.6; margin-bottom: 16px; }
+
+.la-agent-scope-title {
+  font-size: 10px; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--la-ink3);
+  margin-bottom: 10px;
+}
+.la-agent-scope-list { list-style: none; padding: 0; margin: 0 0 16px; }
+.la-agent-scope-list li {
+  font-size: 12px; color: var(--la-ink2);
+  padding: 5px 0; border-bottom: 1px solid var(--la-border);
+  display: flex; align-items: center; gap: 8px;
+}
+.la-agent-scope-list li::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.la-agent-full.luca  .la-agent-scope-list li::before { background: var(--la-cyan); }
+.la-agent-full.astra .la-agent-scope-list li::before { background: var(--la-violet); }
+
+.la-agent-rule {
+  font-size: 12px; color: var(--la-ink2); line-height: 1.55;
+  background: #f9f8f6; border-left: 3px solid;
+  border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 4px;
+}
+.la-agent-full.luca  .la-agent-rule { border-color: var(--la-cyan); }
+.la-agent-full.astra .la-agent-rule { border-color: var(--la-violet); }
+.la-agent-rule strong { color: var(--la-ink); }
+
+@media (max-width: 900px) {
+  .la-squad-intro    { grid-template-columns: 1fr; }
+  .la-agents-cards   { grid-template-columns: 1fr; }
+}
+EOF
+
+echo "✅ CSS v2 — radar + squad + agents enrichis"
+
+# ──────────────────────────────────────────────
+# 3. overrides/home.html — VERSION COMPLÈTE v2
+# ──────────────────────────────────────────────
+cat > overrides/home.html << 'HTMLEOF'
 {% extends "base.html" %}
 {% block styles %}
   {{ super() }}
@@ -502,3 +802,36 @@ sections.forEach(s => obs.observe(s));
 })();
 </script>
 {% endblock %}
+HTMLEOF
+
+echo "✅ overrides/home.html v2 — squad + radar + agents enrichis"
+
+# ──────────────────────────────────────────────
+# COMMIT & PUSH
+# ──────────────────────────────────────────────
+git add .
+git commit -m "feat(landing): v2 — squad radar chart, avatars, agents chapeau + dialogue + fiches"
+git push origin main
+
+echo ""
+echo "════════════════════════════════════════════════════════"
+echo "  🎉 Landing v2 déployée"
+echo "════════════════════════════════════════════════════════"
+echo ""
+echo "  📁 PROCHAINE ÉTAPE — copier les images :"
+echo ""
+echo "     cp /chemin/PO-Tech.png          docs/assets/images/avatars/po-tech.png"
+echo "     cp /chemin/GenAI-FullStack.png  docs/assets/images/avatars/genai-fullstack.png"
+echo "     cp /chemin/SRE-lead.png         docs/assets/images/avatars/sre-lead.png"
+echo "     cp /chemin/SOC-Analyst.png      docs/assets/images/avatars/soc-analyst.png"
+echo "     cp /chemin/LZ-Ops.png           docs/assets/images/avatars/lz-ops.png"
+echo "     cp /chemin/agentic-luca.png     docs/assets/images/avatars/agentic-luca.png"
+echo "     cp /chemin/agentic-astra.png    docs/assets/images/avatars/agentic-astra.png"
+echo ""
+echo "     git add docs/assets/images/avatars/"
+echo '     git commit -m "assets: add avatar images"'
+echo "     git push"
+echo ""
+echo "  👀 Local : python -m mkdocs serve → http://127.0.0.1:8000"
+echo "  🌐 Live  : https://sylvain-e-chabi.github.io/LaA-docs/"
+echo ""
